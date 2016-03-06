@@ -11,8 +11,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        int Skor = 0;
         int r = 20;
-        
+        int[,] tetr = new int[18,24];
         Class1 figure = new Class1();
         List<Point> Tochki = new List<Point>();
         Color c = Color.LimeGreen;
@@ -34,8 +35,10 @@ namespace WindowsFormsApplication1
                 End();
                 foreach (Point p in figure.FillPoints)
                 {
+                    tetr[p.X / r, p.Y / r] = 1;
                     Tochki.Add(p);
                 }
+                CheckPoint();
                 figure = new Class1();
                 pictureBox1.Invalidate();
             }
@@ -49,13 +52,24 @@ namespace WindowsFormsApplication1
 
         public void DrowPoints(Graphics gr)
         {
-                 Pen p = new Pen(Color.Black,2);
-                 SolidBrush b = new SolidBrush(c);
-                 foreach (Point point in Tochki)
-             {
-                 gr.FillRectangle(b, point.X, point.Y, r, r);
-                 gr.DrawRectangle(p,point.X,point.Y,r,r);
-             }
+            Pen p = new Pen(Color.Black, 2);
+            SolidBrush b = new SolidBrush(c);
+            foreach (Point point in Tochki)
+            {
+                gr.FillRectangle(b, point.X, point.Y, r, r);
+                gr.DrawRectangle(p,point.X,point.Y,r,r);
+            }
+            for (int i = 0; i < tetr.GetLength(0); i++)
+            {
+                for (int j = 0; j < tetr.GetLength(1); j++)
+                {
+                    if (tetr[i, j] != 0)
+                    {
+                        SolidBrush Brush = new SolidBrush(Color.Black);
+                        gr.FillEllipse(Brush, new Rectangle(new Point(i * 20, j * 20), new Size(5, 5)));
+                    }
+                }
+            }
         }
 
         public bool canmove()
@@ -65,7 +79,7 @@ namespace WindowsFormsApplication1
             {
                 foreach (Point point1 in figure.FillPoints)
                 {
-                    if (point.Equals(new Point(point.X, point1.Y + figure.r)))
+                    if (point.Equals(new Point(point1.X, point1.Y + figure.r)))
                         return false;
                 }
             }
@@ -98,6 +112,15 @@ namespace WindowsFormsApplication1
                         figure.location = new Point(figure.location.X - figure.r, figure.location.Y);
                     }
                     break;
+                case Keys.S:
+                    {
+                        while (canmove())
+                        {
+                            figure.step();
+                            pictureBox1.Invalidate();
+                        }
+                    }
+                    break;
             } 
                     pictureBox1.Invalidate();
         }
@@ -118,7 +141,7 @@ namespace WindowsFormsApplication1
 
         public bool canright()
         {
-            bool can = figure.RightPoint.X + figure.r <= pictureBox1.Width;
+            bool can = figure.RightPoint.X + figure.r < pictureBox1.Width;
             foreach (Point point in Tochki)
             {
                 foreach (Point point1 in figure.FillPoints)
@@ -130,7 +153,46 @@ namespace WindowsFormsApplication1
             return can;
         }
 
-        
+        private void CheckPoint()
+        {
+            for (int i = 0; i < tetr.GetLength(1); i++)
+            {
+                bool isDel = true;
+                for (int j = 0; j < tetr.GetLength(0); j++)
+                {
+                    if (tetr[j, i] == 0)
+                    {
+                        isDel = false;
+                        break;
+                    }
+                }
+                if (isDel)
+                {
+                    Skor += 100;
+                    for (int j = 0; j < tetr.GetLength(0); j++)
+                    {
+                        tetr[j, i] = 0;
+                        for (int k = i; k > 0; k--)
+                        {
+                            tetr[j, k] = tetr[j, k - 1];
+                        }
+                    }
+                    Tochki.Clear();
+                    for (int i1 = 0; i1 < tetr.GetLength(0); i1++)
+                    {
+                        for (int j1 = 0; j1 < tetr.GetLength(1); j1++)
+                        {
+                            if (tetr[i1,j1] != 0)
+                            {
+                                Point pt = new Point(i1 * 20, j1 * 20);
+                                Tochki.Add(pt);
+                            }
+                        }
+                    }
+                }
+            }
+            label1.Text = Skor.ToString();
+        }
 
     }
 }
