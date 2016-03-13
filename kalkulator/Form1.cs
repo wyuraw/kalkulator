@@ -14,7 +14,7 @@ namespace WindowsFormsApplication1
         int Skor = 0;
         int r = 20;
         int[,] tetr = new int[18,24];
-        Class1 figure = new Class1();
+        Figure figure;
         List<Point> Tochki = new List<Point>();
         Color c = Color.LimeGreen;
 
@@ -39,7 +39,7 @@ namespace WindowsFormsApplication1
                     Tochki.Add(p);
                 }
                 CheckPoint();
-                figure = new Class1();
+                Shape_Generate();
                 pictureBox1.Invalidate();
             }
         }
@@ -194,5 +194,27 @@ namespace WindowsFormsApplication1
             label1.Text = Skor.ToString();
         }
 
-    }
+        public void Shape_Generate()
+        {
+            Random r = new Random();
+            switch(r.Next(0,3))
+            {
+                case 0:
+                    figure = new Squire();
+                    break;
+                case 1:
+                    figure = new bykva_r();
+                    break;
+                case 2:
+                    figure = new Line();
+                    break;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Shape_Generate();
+        }
+
+   }
 }
