@@ -22,16 +22,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-        public override Point SLT
-        {
-            get
-            {
-                Point result = new Point(location.X, location.Y + r);
-                return result;
-            }
-        }
-
-
         //Конструктор
 
         //Методы

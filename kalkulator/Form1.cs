@@ -121,6 +121,11 @@ namespace WindowsFormsApplication1
                         }
                     }
                     break;
+                case Keys.Space:
+                    {
+                        figure.ratate();
+                    }
+                    break;
             } 
                     pictureBox1.Invalidate();
         }
@@ -197,7 +202,7 @@ namespace WindowsFormsApplication1
         public void Shape_Generate()
         {
             Random r = new Random();
-            switch(r.Next(0,3))
+            switch(r.Next(5,5))
             {
                 case 0:
                     figure = new Squire();
@@ -207,6 +212,15 @@ namespace WindowsFormsApplication1
                     break;
                 case 2:
                     figure = new Line();
+                    break;
+                case 3:
+                    figure = new bykva_T();
+                    break;
+                case 4:
+                    figure = new bykva_Z();
+                    break;
+                case 5:
+                    figure = new pbykva_Z();
                     break;
             }
         }

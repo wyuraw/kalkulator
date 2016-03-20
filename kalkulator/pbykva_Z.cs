@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace WindowsFormsApplication1
 {
-    class bykva_r: Figure
+    class pbykva_Z : Figure
     {
         public override List<Point> FillPoints
         {
@@ -18,38 +18,39 @@ namespace WindowsFormsApplication1
                     case 0:
                         {
                             result.Add(location);
-                            result.Add(new Point(location.X + r, location.Y));
-                            result.Add(new Point(location.X, location.Y + r));
-                            result.Add(new Point(location.X, location.Y + 2 * r));
+                            result.Add(new Point(location.X - r, location.Y));
+                            result.Add(new Point(location.X - r, location.Y + r));
+                            result.Add(new Point(location.X - 2 * r, location.Y + r));
                         }
                         break;
 
                     case 1:
                         {
                             result.Add(location);
-                            result.Add(new Point(location.X + 2 * r, location.Y + r));
-                            result.Add(new Point(location.X + r, location.Y));
-                            result.Add(new Point(location.X + 2 * r, location.Y));
+                            result.Add(new Point(location.X, location.Y + r));
+                            result.Add(new Point(location.X + r, location.Y + r));
+                            result.Add(new Point(location.X + r, location.Y + 2 * r));
                         }
                         break;
 
                     case 2:
                         {
                             result.Add(location);
-                            result.Add(new Point(location.X - r, location.Y));
-                            result.Add(new Point(location.X, location.Y - r));
-                            result.Add(new Point(location.X, location.Y - 2 * r));
+                            result.Add(new Point(location.X + r, location.Y));
+                            result.Add(new Point(location.X + r, location.Y - r));
+                            result.Add(new Point(location.X + 2 * r, location.Y - r));
                         }
                         break;
 
                     case 3:
                         {
                             result.Add(location);
-                            result.Add(new Point(location.X - 2 * r, location.Y - r));
-                            result.Add(new Point(location.X - r, location.Y));
-                            result.Add(new Point(location.X - 2 * r, location.Y));
+                            result.Add(new Point(location.X, location.Y - r));
+                            result.Add(new Point(location.X - r, location.Y - r));
+                            result.Add(new Point(location.X - r, location.Y - 2 * r));
                         }
                         break;
+
                 }
                 return result;
             }

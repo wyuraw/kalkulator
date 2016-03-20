@@ -30,6 +30,8 @@ namespace WindowsFormsApplication1
                         }
                     }
 
+            public int state { get; set; }
+
 
         //Конструктор
 
@@ -51,13 +53,34 @@ namespace WindowsFormsApplication1
             location = new Point(location.X,location.Y + r);
         }
 
-        public virtual Point SLT
+        public Point SLT
         {
             get
             {
-                Point result = new Point(location.X, location.Y + 2 * r);
-                return result;
+                return Down_Point;
             }
+        }
+
+        
+
+        public Point Down_Point
+        {
+            get
+            {
+                Point p1 = new Point();
+                        p1 = location;
+               foreach (Point p in FillPoints)
+                {
+                    if (p1.Y < p.Y)
+                        p1 = p;
+                }
+               return p1;
+            }
+        }
+
+        public virtual void ratate()
+        {
+
         }
 
     }
